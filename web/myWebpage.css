@@ -1,0 +1,39 @@
+h1{
+    color: green;
+    text-align: center;
+  }
+  h3{
+    text-align:center;
+  }
+  .random_number{
+    margin: 50px;
+    font-size: 150px;
+    text-align: center;
+  }
+  #main{
+    display: block;
+    margin: 0 auto;
+  }
+  .boutonNavigation{
+    display:inline;
+    margin:0px;
+  }
+  
+  #score{
+    text-align:center;
+  }
+  #save{
+    text-align:center;
+  }
+  #sauvegarde{
+    text-align:center;
+  }
+  button.boutonNavigation.btn-primary.btn {
+    width: 30%;
+    padding: 20px;
+    margin: 4px;
+  }
+
+  div#list {
+    text-align: center;
+  }
