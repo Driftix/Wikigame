@@ -1,6 +1,6 @@
-#Wikigame Guilhem Schira
+# Wikigame Guilhem Schira
 
-##A savoir avant :O
+## A savoir avant :O
 - Normalement même en changeant les parametres ça marche :D
 - On peut pas gruger les URLs
 - Seul moyen = localhost:8000/myWebpage.html sans parametres :/ (mais vous pourrez juste pas jouer)
@@ -8,10 +8,10 @@
 - Parfois le chargement est long car il y a beaucoup de liens sur la page de définition du wikipedia! 
 
 
-##Installation des modules automatiquement :
+## Installation des modules automatiquement :
 - Lancez module.cmd pour importer les modules utilisés
 
-##Si vous voulez installer les modules vous même :
+## Si vous voulez installer les modules vous même :
 ```shell
 pip install eel
 ```
@@ -22,7 +22,7 @@ pip install requests
 pip install bs4
 ```
 
-##Une fois les dépendance ajoutées, lancez le jeu ! 
+## Une fois les dépendance ajoutées, lancez le jeu ! 
 ```shell
 python .\WebServeur.py
 ```
