@@ -1,0 +1,3 @@
+-> Normalement même en changeant les parametres ça marche :D
+-> On peut pas gruger les URLs
+-> Seul moyen = localhost:8000/myWebpage.html sans parametres :/ (mais vous pourrez juste pas jouer)

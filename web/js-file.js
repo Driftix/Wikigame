@@ -1,18 +1,22 @@
-let start = document.getElementById("main");
-let load = document.getElementById("load");
-start.onclick = async function () {
-    
-    await eel.objectInitiator()(createView);
-    //await eel.objectInitiator()(createView);
-  }
-load.onclick = async function () {
-    await eel.jsonLoad()(createView)
+
+//Permet de savoir si on doit créer ou charger une partie
+let pageParameter = new URLSearchParams(window.location.search).get('page')
+if(pageParameter == 'start'){
+    eel.objectInitiator()(createView);
+}else if(pageParameter == 'load'){
+    eel.jsonLoad(document.cookie)(createView);
+}else if(pageParameter == 'menu'){
+    window.location.href = "index.html";
+}else{ //Si jamais on viens d'arriver sur le site !
+    //Si on a pas de cookies on en crée un
+    if(document.cookie == ""){
+        createCookie();
+    }//Si on a déjà un cookie y'a rien à faire :D
 }
+
+//Création de la vue du jeu 
 async function createView(linksData){
-    //Suppression du bouton start
-    start.remove();
-    //Suppression du bouton loadSave
-    load.remove();
+
     //On décode en JSON les données principales
     linksData = JSON.parse(linksData);
     //Ajout historique
@@ -24,7 +28,7 @@ async function createView(linksData){
     
     document.getElementById("goal").innerText = linksData.nom_sortie;
     document.getElementById("page").innerText = linksData.nom_entree;
-    document.getElementById("score").innerText = linksData.score;
+    document.getElementById("score").innerText = "Votre Score: " + linksData.score;
     //On veut créér un bouton de sauvegarde avec notre linksData;
     createSaveButton(linksData);
     //Il faut penser à décoder les liens dans les datas
@@ -47,9 +51,7 @@ function createButton(link,score, lien_sortie){
         Array.from(document.getElementsByClassName('boutonNavigation')).forEach(bouton=>bouton.remove());
     }
     newDiv.onmouseover = async function (){
-        let hover = await eel.navHover(link)()
-        console.log(hover.liens);
-        document.getElementById("test").innerText = hover
+        console.log(document.cookie)
     }
     document.getElementById("list").insertAdjacentElement('beforeend',newDiv);   
 }
@@ -57,10 +59,11 @@ function createSaveButton(linksData){
     let saveButton = document.createElement("button");
     const newSaveButton = document.createTextNode("Sauvegarder la partie");
     saveButton.appendChild(newSaveButton);
-    saveButton.classList.add("btn-primary","btn");
+    saveButton.classList.add("btn-success","btn");
     //Action de click qui permet de sauvegarder
     saveButton.onclick = async function () {
-        let save = await eel.jsonSave(linksData)();
+        console.log(document.cookie)
+        let save = await eel.jsonSave(linksData,document.cookie)();
     }
     document.getElementById("sauvegarde").insertAdjacentElement("beforeend", saveButton);
 }
@@ -68,4 +71,20 @@ function createSaveButton(linksData){
 eel.expose(youWin)
 function youWin(){
     window.location.href = "win.html";
+}
+
+
+
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+function createCookie(){
+    let coookiestr = makeid(20);
+    document.cookie = coookiestr;
 }

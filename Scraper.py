@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 from urllib.parse import unquote
 from Liens import Liens
+import sys
 #Fonction de requête pour obtenir un HTML parsé
 def requestHTML(url):
     xa=u'\xa0'
@@ -13,9 +14,15 @@ def requestHTML(url):
         'Access-Control-Max-Age': '3600',
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
     }
-    response = requests.get(url, headers=headers)
-    response = BeautifulSoup(response.content,'html.parser')
-    return response
+    #Vérification si on a internet 
+    try:
+        response = requests.get(url, headers=headers)
+        response = BeautifulSoup(response.content,'html.parser')
+        return response
+    except:
+        print("erreur de connexion internet")
+        sys.exit()
+    
 
 #--------------------EXCLUDE NOISES-----------------------------------
 #Permet de clean les éléments donc nous n'avons pas besoin

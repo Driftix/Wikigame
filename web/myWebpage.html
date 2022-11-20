@@ -1,28 +1,34 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="myWebpage.css">
+    <link rel="stylesheet" href="./myWebpage.css">
     <title>WikiGame</title>
   </head>
   <body>
+
+    <div class="d-flex justify-content-center">
+    <div> 
+      <a class="btn btn-warning d-flex justify-content-center" href="/?page=menu">Menu</a>
+      <h4 class="d-flex justify-content-center">Votre historique: </h4>
+      <div id="wrapper">
+        <div class="scrollbar d-flex justify-content-center" id="style-1">
+          <div id="historique" class="force-overflow"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
     <h1 id="goal"></h1>
     <h3 id="page"></h3>
-    <div id="score"></div>
-    <span class="border d-flex align-items-center justify-content-center">
-      <button id="main">Lancer une nouvelle partie</button>
-      <button id="load">Charger la dernière partie</button>
-    </span>
-  
+    <div id="score"> Votre Score :</div>
     <div id="sauvegarde"></div>
-    <div id="test"></div>
-    <div id="historique"></div>
-    <!--Optimiser les text-align dans le css-->
-    <div id="list"></div>
+
+  <div id="list"></div>
     
     <script type="text/javascript" src="../eel.js"></script>
     <script src="/js-file.js"></script>

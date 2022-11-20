@@ -5,14 +5,15 @@ import Scraper
 from StructuredData import StructuredData
 from Liens import Liens
 
-htmlDepart = Scraper.requestHTML("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
-urlArrive = Scraper.requestHTML("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
-links = Scraper.httpURLCorrect(Scraper.getAllLinks(Scraper.excludeNoises(htmlDepart)))
 #Penser à gérer quand on est offline
 eel.init("web")
 
 @eel.expose
 def objectInitiator():
+    
+    htmlDepart = Scraper.requestHTML("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
+    urlArrive = Scraper.requestHTML("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
+    links = Scraper.httpURLCorrect(Scraper.getAllLinks(Scraper.excludeNoises(htmlDepart)))
     #On transforme d'abord les liens en json String
     json_string_links = json.dumps([ob.__dict__ for ob in links])
     #Puis on transforme un objet StructuredData en json String afin de l'envoyer au JS
@@ -40,21 +41,22 @@ def requestLink(link, score, lien_sortie):
 
 #Permet d'effectuer une sauvegarde à l'instant t d'un partie
 @eel.expose
-def jsonSave(linksData) :
+def jsonSave(linksData,cookie) :
     try :
-        with open('save.json','w') as outfile:
+        with open('./saves/{}.json'.format(cookie),'w') as outfile:
             outfile.write(json.dumps(linksData))
     except IOError:
         print("Erreur d'enregistrement")
 
 @eel.expose
-def jsonLoad():
+def jsonLoad(cookie):
     try:
-        with open('save.json','r') as openfile:
+        with open('./saves/{}.json'.format(cookie),'r') as openfile:
             json_object = json.load(openfile)
             link = Liens(json_object.get("nom_entree"),json_object.get("lien_entree"))
             #On passe l'objet en dict parce que requestLink prend un dict en lien  
-            return requestLink(link.__dict__, json_object.get("score"), json_object.get("lien_sortie"))
+            #Le -1 sur le lien c'est parce que dès que l'on affiche la sauvegarde on avait +1 sur le score à cause de la redondance javascript
+            return requestLink(link.__dict__, json_object.get("score")-1, json_object.get("lien_sortie"))
     except IOError:
         print("Erreur de lecture")
 
@@ -70,4 +72,4 @@ def navHover(link):
     
     
 #Page d'entrée 
-eel.start("myWebpage.html")
+eel.start("index.html")
