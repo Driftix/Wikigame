@@ -5,12 +5,10 @@ import Scraper
 from StructuredData import StructuredData
 from Liens import Liens
 
-#Penser à gérer quand on est offline
 eel.init("web")
 
 @eel.expose
 def objectInitiator():
-    
     htmlDepart = Scraper.requestHTML("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
     urlArrive = Scraper.requestHTML("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
     links = Scraper.httpURLCorrect(Scraper.getAllLinks(Scraper.excludeNoises(htmlDepart)))

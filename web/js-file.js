@@ -72,9 +72,7 @@ eel.expose(youWin)
 function youWin(){
     window.location.href = "win.html";
 }
-
-
-
+//Permet de générer un ID pour l'enregistrement d'une partie (cookie)
 function makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
